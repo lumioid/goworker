@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"runtime/debug"
 	"sync"
 	"time"
 )
@@ -139,7 +140,9 @@ func (w *worker) run(job *Job, workerFunc workerFunc) {
 	}()
 	defer func() {
 		if r := recover(); r != nil {
-			err = errors.New(fmt.Sprint(r))
+			// add stack information to the error will help
+			// in debugging worker crash
+			err = errors.New(fmt.Sprint(r, debug.Stack()))
 		}
 	}()
 
