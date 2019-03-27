@@ -144,7 +144,7 @@ func (w *worker) run(job *Job, workerFunc workerFunc) {
 			err = errors.New(fmt.Sprint(r))
 
 			// add stack information to the error will help
-			// in debugging worker crash  
+			// in debugging worker crash
 			log.Println(err, debug.Stack())
 		}
 	}()
